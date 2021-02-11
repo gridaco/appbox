@@ -1,0 +1,3 @@
+[submodule "packages/editor-x"]
+	path = packages/editor-x
+	url = https://github.com/bridgedxyz/editor-x
