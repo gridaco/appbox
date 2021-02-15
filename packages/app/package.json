@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "vercel-preinstall": "git submodule update --init --recursive",
-    "vercel-install": "npm vercel-preinstall && npm install",
-    "vercel-build": "npm build"
+    "vercel-install": "npm run vercel-preinstall && npm run install",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "@babel/core": "^7.12.16",
