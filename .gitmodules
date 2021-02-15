@@ -1,3 +1,6 @@
 [submodule "packages/editor-x"]
 	path = packages/editor-x
 	url = https://github.com/bridgedxyz/editor-x
+[submodule "packages/reflect-ui"]
+	path = packages/reflect-ui
+	url = https://github.com/bridgedxyz/reflect-ui-react
