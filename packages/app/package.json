@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "vercel-preinstall": "git submodule update --init --recursive",
-    "vercel-install": "npm run vercel-preinstall && npm run install",
+    "vercel-install": "npm run vercel-preinstall && npm install",
     "vercel-build": "npm run build"
   },
   "dependencies": {
