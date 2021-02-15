@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "vercel-setup": "git submodule update --init --recursive",
+    "vercel-build": "yarn vercel-setup && yarn workspace app run build"
   },
   "dependencies": {
     "@babel/core": "^7.12.16",
