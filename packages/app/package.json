@@ -15,6 +15,7 @@
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.1.5",
+    "@reflect-ui.com/editor-x": "0.0.1",
     "babel-plugin-emotion": "^11.0.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "lodash-es": "^4.17.20",
