@@ -5,18 +5,18 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Frames for Bridged Appbox</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <a href="https://appbox.bridged.xyz">Appbox</a> Frames
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+          Get started by downloading <a href="https://github.com/bridgedxyz/appbox">frames sdk</a>
+          <code className={styles.code}>yarn add @appbox.bridged.xyz/frames</code>
         </p>
 
         <div className={styles.grid}>
