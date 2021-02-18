@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { compileFlutterApp } from "@bridged.xyz/client-sdk/lib/build/flutter";
+import { nanoid } from "nanoid";
 
 const FRAME_ID = "xyz.bridged.appbox.frames.flutter";
 /**
@@ -16,10 +17,13 @@ type FlutterLoadingState =
   | "failed";
 
 interface FlutterFrameQuery {
+  id: string;
   src: string;
   mode: "content" | "url";
-  language: "js" | "dart";
+  language: FlutterCompatLanguage;
 }
+
+type FlutterCompatLanguage = "js" | "dart";
 
 export default function () {
   const router = useRouter();
@@ -29,16 +33,43 @@ export default function () {
   // emmit pre-warming on first time
   useEffect(() => {
     emmitState("pre-warming");
-    if (validQuery) {
-    }
   }, []);
 
   if (!validQuery) {
     return <FlutterFrameWrongUsageError />;
   }
 
-  const onIframeLoaded = () => {
+  const id = query.id ?? nanoid();
+
+  const onIframeLoaded = async () => {
     emmitState("compiling");
+
+    let iframe = document.getElementById(FRAME_ID) as HTMLIFrameElement;
+    let sourceRes: SourceResponse;
+    if (query.mode == "url") {
+      const res = await fetch(query.src);
+      const source = await res.text();
+
+      sourceRes = await getCompiledJsSource({
+        id: id,
+        source: source,
+        language: query.language,
+      });
+    } else {
+      sourceRes = await getCompiledJsSource({
+        id: id,
+        source: query.src,
+        language: query.language,
+      });
+    }
+
+    iframe.contentWindow!.postMessage(
+      {
+        command: "execute",
+        js: sourceRes?.source,
+      },
+      "*"
+    );
   };
 
   return (
@@ -115,27 +146,26 @@ function emmitState(state: FlutterLoadingState) {
   );
 }
 
+interface SourceResponse {
+  url: string;
+  source: string;
+}
+
 async function getCompiledJsSource(props: {
   id: string;
-  js?: string;
-  dart?: string;
-}): Promise<
-  | {
-      url: string;
-      source: string;
-    }
-  | undefined
-> {
-  if (props.js) {
+  source: string;
+  language: FlutterCompatLanguage;
+}): Promise<SourceResponse> {
+  if (props.language == "js") {
     emmitState("js-compiled");
     return {
-      url: URL.createObjectURL(new Blob([props.js])),
-      source: props.js,
+      url: URL.createObjectURL(new Blob([props.source])),
+      source: props.source,
     };
-  } else if (props.dart) {
+  } else if (props.language == "dart") {
     try {
       const app = await compileFlutterApp({
-        dart: props.dart,
+        dart: props.source,
         id: props.id,
       });
 
@@ -153,6 +183,7 @@ async function getCompiledJsSource(props: {
       };
     } catch (e) {
       emmitState("failed");
+      throw e;
     }
   } else {
     throw "one of dart or js should be provided";
