@@ -2,28 +2,12 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { compileFlutterApp } from "@bridged.xyz/client-sdk/lib/build/flutter";
 import { nanoid } from "nanoid";
-
+import {
+  FlutterLoadingState,
+  FlutterFrameQuery,
+  FlutterCompatLanguage,
+} from "@bridged.xyz/client-sdk/lib/frame-embed/flutter";
 const FRAME_ID = "xyz.bridged.appbox.frames.flutter";
-/**
- * state of flutter frame loading
- */
-type FlutterLoadingState =
-  | "pre-warming"
-  | "compiling"
-  | "js-compiled"
-  | "engine-loaded"
-  | "drawing"
-  | "complete"
-  | "failed";
-
-interface FlutterFrameQuery {
-  id: string;
-  src: string;
-  mode: "content" | "url";
-  language: FlutterCompatLanguage;
-}
-
-type FlutterCompatLanguage = "js" | "dart";
 
 export default function () {
   const router = useRouter();
