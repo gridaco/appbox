@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { compileFlutterApp } from "@bridged.xyz/client-sdk/lib/build/flutter";
 
 const FRAME_ID = "xyz.bridged.appbox.frames.flutter";
 /**
@@ -112,4 +113,48 @@ function emmitState(state: FlutterLoadingState) {
     },
     "*"
   );
+}
+
+async function getCompiledJsSource(props: {
+  id: string;
+  js?: string;
+  dart?: string;
+}): Promise<
+  | {
+      url: string;
+      source: string;
+    }
+  | undefined
+> {
+  if (props.js) {
+    emmitState("js-compiled");
+    return {
+      url: URL.createObjectURL(new Blob([props.js])),
+      source: props.js,
+    };
+  } else if (props.dart) {
+    try {
+      const app = await compileFlutterApp({
+        dart: props.dart,
+        id: props.id,
+      });
+
+      console.log("compiled", app);
+
+      const blob = new Blob([app.js!], {
+        type: "application/javascript",
+      });
+      const url = URL.createObjectURL(blob);
+
+      emmitState("js-compiled");
+      return {
+        url: url,
+        source: app.js!,
+      };
+    } catch (e) {
+      emmitState("failed");
+    }
+  } else {
+    throw "one of dart or js should be provided";
+  }
 }
