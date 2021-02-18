@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@appbox.bridged.xyz/frames": "0.0.1",
+    "@bridged.xyz/client-sdk": "0.0.1-14",
     "@types/node": "^14.14.28",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
