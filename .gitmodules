@@ -4,6 +4,6 @@
 [submodule "packages/reflect-ui"]
 	path = packages/reflect-ui
 	url = https://github.com/bridgedxyz/reflect-ui-react
-[submodule "packages/client-sdk"]
-	path = packages/client-sdk
-	url = https://github.com/bridgedxyz/client-sdk-ts
+[submodule "packages/base-sdk"]
+	path = packages/base-sdk
+	url = https://github.com/bridgedxyz/base-sdk-ts
