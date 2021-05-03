@@ -5,6 +5,7 @@
         "packages/*"
     ],
     "scripts": {
-        "app": "yarn workspace app run dev"
+        "app": "yarn workspace app run dev",
+        "frames": "yarn workspace frames run dev"
     }
 }

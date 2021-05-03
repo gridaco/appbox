@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { compileFlutterApp } from "@bridged.xyz/client-sdk/lib/build/flutter";
+import { compileFlutterApp } from "@bridged.xyz/base-sdk/lib/build/flutter";
 import { nanoid } from "nanoid";
 import {
   FlutterLoadingState,
   FlutterFrameQuery,
   FlutterCompatLanguage,
-} from "@bridged.xyz/client-sdk/lib/frame-embed/flutter";
+} from "@bridged.xyz/base-sdk/lib/frame-embed/flutter";
 const FRAME_ID = "xyz.bridged.appbox.frames.flutter";
 
 export default function () {
@@ -20,7 +20,12 @@ export default function () {
   }, []);
 
   if (!validQuery) {
-    return <FlutterFrameWrongUsageError />;
+    return (
+      <FlutterFrameWrongUsageError
+        reason={`query paramter "src" was empty`}
+        input={query}
+      />
+    );
   }
 
   const id = query.id ?? nanoid();
@@ -80,14 +85,19 @@ export default function () {
   );
 }
 
-function FlutterFrameWrongUsageError() {
+function FlutterFrameWrongUsageError(props: { reason: string; input: object }) {
   return (
     <div style={{ margin: 24 }}>
-      <h6>ERROR</h6>
+      <h4>ERROR</h4>
       <h5>Invalid Queries for flutter frame</h5>
       <div>
         <p>
           You have entered a wrong query for loading flutter preview. <br />
+          <br />
+          Reason: <pre>{props.reason}</pre>
+          <br />
+          Input: <pre>{JSON.stringify(props.input, null, 2)}</pre>
+          <br />
           <br />
           <strong>
             1. <code>src</code> is required.{" "}
