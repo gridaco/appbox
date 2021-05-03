@@ -125,6 +125,11 @@ function FlutterFrameWrongUsageError(props: { reason: string; input: object }) {
           compiled js. if dart is givven, frame will compile this to js and load
           the preview (you don't need to care about this part at all.).
           <br />
+          <br />
+          <h5>Example</h5>
+          <a href="https://frames-appbox.bridged.xyz/flutter/?src=https://gist.githubusercontent.com/softmarshmallow/9659717bf0a876940b65ee3cdaef0655/raw/c0f7f86bb7758bfd61b71f11e836c6935fe3d735/gist_demo_flutter.dart&mode=url&language=dart">
+            Click here for the example demo of flutter frames
+          </a>
         </p>
       </div>
     </div>
