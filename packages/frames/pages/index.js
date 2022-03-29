@@ -14,7 +14,7 @@ export default function Home() {
 
       <main>
         <h1>
-          Welcome to <a href="https://appbox.bridged.xyz">Appbox</a> Frames
+          Welcome to <a href="https://appbox.grida.co">Appbox</a> Frames
         </h1>
 
         <p>
@@ -27,6 +27,9 @@ export default function Home() {
         <p>
           <a href="/flutter">
             <pre>/flutter</pre> Flutter Web app embedding `/flutter`
+          </a>
+          <a href="/webcam">
+            <pre>/webcam</pre> Full size Webcam embedding `/webcam`
           </a>
         </p>
       </main>
