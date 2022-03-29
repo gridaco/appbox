@@ -1,17 +1,12 @@
-import { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { compileFlutterApp } from "@bridged.xyz/base-sdk/lib/build/flutter";
+import { compileFlutterApp } from "@base-sdk/build/dist/flutter";
 import { nanoid } from "nanoid";
-import {
-  FlutterLoadingState,
-  FlutterFrameQuery,
-  FlutterCompatLanguage,
-} from "@bridged.xyz/base-sdk/lib/frame-embed/flutter";
 const FRAME_ID = "xyz.bridged.appbox.frames.flutter";
 
 export default function () {
   const router = useRouter();
-  const query: FlutterFrameQuery = (router.query as any) as FlutterFrameQuery;
+  const query = router.query as any;
   const validQuery: boolean = query.src !== undefined;
 
   // emmit pre-warming on first time
@@ -136,7 +131,7 @@ function FlutterFrameWrongUsageError(props: { reason: string; input: object }) {
   );
 }
 
-function emmitState(state: FlutterLoadingState) {
+function emmitState(state: string) {
   window.postMessage(
     {
       state: state,
@@ -153,7 +148,7 @@ interface SourceResponse {
 async function getCompiledJsSource(props: {
   id: string;
   source: string;
-  language: FlutterCompatLanguage;
+  language: "dart" | "js";
 }): Promise<SourceResponse> {
   if (props.language == "js") {
     emmitState("js-compiled");
