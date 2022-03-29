@@ -6,10 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "vercel-preinstall": "git submodule update --init --recursive",
-    "vercel-install": "yarn vercel-preinstall && yarn install",
-    "vercel-build": "yarn build"
+    "start": "next start"
   },
   "dependencies": {
     "@bridged.xyz/base-sdk": "0.0.1-19",
